@@ -29,6 +29,6 @@ jobs:
     - name: Run the website application
       run: |
          make run &
-         sleep 10  # Sleep to ensure the server starts before the workflow completes
+         sleep 30  # Sleep to ensure the server starts before the workflow completes
     - name: Test the project
       run: curl http://localhost:3000
