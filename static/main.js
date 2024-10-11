@@ -39,4 +39,39 @@ function displayChart(data) {
     //        - similarities (list) - list of similarities
     // TODO: Implement function to display chart here
     //       There is a canvas element in the HTML file with the id 'similarity-chart'
+    // Get the canvas element where the chart will be rendered
+    let ctx = document.getElementById('similarity-chart').getContext('2d');
+    
+    // Destroy the old chart instance if it exists
+    if (window.myChart) {
+        window.myChart.destroy();
+    }
+
+    // Create a new Chart.js bar chart
+    window.myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: data.indices.map(index => `Document ${index}`),  // Labels for each document
+            datasets: [{
+                label: 'Cosine Similarity',
+                data: data.similarities,  // Cosine similarity scores
+                backgroundColor: 'rgba(54, 162, 235, 0.6)',  // Bar color
+                borderColor: 'rgba(54, 162, 235, 1)',  // Bar border color
+                borderWidth: 1  // Width of the border
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 1  // Set max to 1 since cosine similarities range from 0 to 1
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false  // Hide the legend if not needed
+                }
+            }
+        }
+    });
 }
